@@ -3,16 +3,18 @@ function Download-File {
         [string]$Url,
         [string]$OutputPath = $(Split-Path -Leaf $Url)
     )
-    if (Test-Path -PathType Leaf $OutputPath) {
-        $Path = "${Path}\$(Split-Path -Leaf $Url)"
-    } else {
+    if (Test-Path -PathType Container $OutputPath) {
+        # Output path is a directory so make the full path
+        $OutputPath = Join-Path "$OutputPath" "$(Split-Path -Leaf $Url)"
+    }
+    $ParentPath = Split-Path -Parent $OutputPath
+    if (!(Test-Path -PathType Container $ParentPath) -and $ParentPath.Length -gt 0) {
         # Make sure parent path exists.
         New-Item -ItemType Directory -Path $(Split-Path -Parent $OutputPath) -Force > $null
-    } Write-Host "Downloading $(Split-Path -Leaf $Url)"
+    }
+
     $ProgressPreference = 'SilentlyContinue'
     Invoke-WebRequest -Uri $Url -OutFile $OutputPath
-
-    Write-Host "Saved to $OutputPath"
 }
 
 function Get-LeafBase {
@@ -149,7 +151,8 @@ function main {
 
     # Change the default SSH shell from CMD to PowerShell.
     $path = Get-Command powershell
-    New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $path.Source -PropertyType String -Force
+    New-Item -Path "HKCU:\SOFTWARE\OpenSSH" -Force
+    New-ItemProperty -Path "HKCU:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $path.Source -PropertyType String -Force
 
     # Remove the stupid app execution alias for Python so it uses our
     # installation instead of trying to open the Microsoft Store.
