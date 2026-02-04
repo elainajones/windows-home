@@ -27,7 +27,7 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -ScriptBlock {
     [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
 # Tab to show a menu instead of inline cycling
-Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+# Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
 ######################################################################
 # Functions
@@ -62,6 +62,23 @@ function wget {
 
     Write-Host "Saved to $OutputPath"
 }
+function sha256sum {
+    param (
+        [string]$Path
+    )
+    foreach ($i in Get-FileHash -A SHA256 $Path) {
+        write-host "$($i.Hash.ToLower())  $($i.Path | Resolve-Path -Relative)"
+    }
+}
+function md5sum {
+    param (
+        [string]$Path
+    )
+    foreach ($i in Get-FileHash -A MD5 $Path) {
+        write-host "$($i.Hash.ToLower())  $($i.Path | Resolve-Path -Relative)"
+    }
+}
+
 function find {
     param (
         [string]$Path = $PWD,
