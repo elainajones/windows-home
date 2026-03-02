@@ -50,7 +50,7 @@ function wget {
         $OutputPath = Join-Path "$OutputPath" "$(Split-Path -Leaf $Url)"
     }
     $ParentPath = Split-Path -Parent $OutputPath
-    if (!(Test-Path -PathType Container $ParentPath) -and $ParentPath.Length -gt 0) {
+    if ($ParentPath.Length -gt 0 -and !(Test-Path -PathType Container $ParentPath)) {
         # Make sure parent path exists.
         New-Item -ItemType Directory -Path $(Split-Path -Parent $OutputPath) -Force > $null
     }
