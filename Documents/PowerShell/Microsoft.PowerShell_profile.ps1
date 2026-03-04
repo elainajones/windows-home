@@ -6,10 +6,6 @@
 # Settings
 ######################################################################
 Set-PSReadLineOption -BellStyle None
-# Enforce defaults
-[Console]::WindowWidth=84
-[Console]::WindowHeight=26
-[Console]::BufferHeight=9999
 
 ######################################################################
 # Aliases
