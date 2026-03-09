@@ -124,7 +124,7 @@ function main {
     Write-Host "Finished installing packages"
 
     $tempDir = New-TemporaryDirectory
-    $url = "https://www.github.com/elainajones/windows_home.git"
+    $url = "https://www.github.com/elainajones/windows-home.git"
 
     git clone --recurse-submodules -j4 $url $tempDir
 
