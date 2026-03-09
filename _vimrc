@@ -64,57 +64,57 @@ set belloff=all
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load plugins first so vimrc configs can override for changes
-" Gruvbox (colorscheme) config {{{
-" I honestly forgot what these are for
-set background=dark
-set notermguicolors
-let g:gruvbox_transparent_bg=1
-let g:gruvbox_bold=1
-let g:gruvbox_italic=1
-colorscheme gruvbox
-nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
-nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
-nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
-" }}}
-" NERDTree config {{{
-let NERDTreeQuitOnOpen = 0
-let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-
-silent! nmap <C-p> :NERDTreeToggle<CR>
-silent! map <F3> :NERDTreeFind<CR>
-
-let g:NERTreeMapActivateNode="<F3>"
-let g:NERDTreeMapPreview="<F4>"
-
-nmap xecute "NERDTree"
-" }}}
-" GitGutter Colors {{{
-let g:gitgutter_override_sign_column_highlight = 0
-highlight clear SignColumn
-highlight GitGutterAdd ctermbg=NONE guibg=NONE "ctermfg=2
-highlight GitGutterChange ctermbg=NONE guibg=NONE "ctermfg=3
-highlight GitGutterDelete ctermbg=NONE guibg=NONE "ctermfg=1
-highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE "ctermfg=4
-" }}}
-" Ale {{{
-let g:ale_lint_delay=0
-let g:ale_linters = {'python': ['pylint', 'flake8'], 'bash': ['cspell']}
-
-let g:ale_python_flake8_options="--ignore E501,F403,F405,E722"
-let g:ale_python_pylint_options="--jobs 4 -E --disable E0401"
-" Enable if performance is poor
-let g:ale_linters_explicit = 1
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_insert_leave = 1
-let g:ale_warn_about_trailing_whitespace = 0
-"let g:ale_lint_on_text_changed = 'never'
-highlight ALEVirtualTextError ctermbg=none ctermfg=red
-highlight ALEVirtualTextWarning ctermbg=none ctermfg=yellow
-highlight ALEErrorSign ctermbg=none ctermfg=red
-highlight ALEWarningSign ctermbg=none ctermfg=yellow
-" }}}
+" " Gruvbox (colorscheme) config {{{
+" " I honestly forgot what these are for
+" set background=dark
+" set notermguicolors
+" let g:gruvbox_transparent_bg=1
+" let g:gruvbox_bold=1
+" let g:gruvbox_italic=1
+" colorscheme gruvbox
+" nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
+" nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
+" nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
+" " }}}
+" " NERDTree config {{{
+" let NERDTreeQuitOnOpen = 0
+" let NERDTreeAutoDeleteBuffer = 1
+" let NERDTreeMinimalUI = 1
+" let NERDTreeDirArrows = 1
+" 
+" silent! nmap <C-p> :NERDTreeToggle<CR>
+" silent! map <F3> :NERDTreeFind<CR>
+" 
+" let g:NERTreeMapActivateNode="<F3>"
+" let g:NERDTreeMapPreview="<F4>"
+" 
+" nmap xecute "NERDTree"
+" " }}}
+" " GitGutter Colors {{{
+" let g:gitgutter_override_sign_column_highlight = 0
+" highlight clear SignColumn
+" highlight GitGutterAdd ctermbg=NONE guibg=NONE "ctermfg=2
+" highlight GitGutterChange ctermbg=NONE guibg=NONE "ctermfg=3
+" highlight GitGutterDelete ctermbg=NONE guibg=NONE "ctermfg=1
+" highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE "ctermfg=4
+" " }}}
+" " Ale {{{
+" let g:ale_lint_delay=0
+" let g:ale_linters = {'python': ['pylint', 'flake8'], 'bash': ['cspell']}
+" 
+" let g:ale_python_flake8_options="--ignore E501,F403,F405,E722"
+" let g:ale_python_pylint_options="--jobs 4 -E --disable E0401"
+" " Enable if performance is poor
+" let g:ale_linters_explicit = 1
+" let g:ale_lint_on_enter = 1
+" let g:ale_lint_on_insert_leave = 1
+" let g:ale_warn_about_trailing_whitespace = 0
+" "let g:ale_lint_on_text_changed = 'never'
+" highlight ALEVirtualTextError ctermbg=none ctermfg=red
+" highlight ALEVirtualTextWarning ctermbg=none ctermfg=yellow
+" highlight ALEErrorSign ctermbg=none ctermfg=red
+" highlight ALEWarningSign ctermbg=none ctermfg=yellow
+" " }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keymapping
