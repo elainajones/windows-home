@@ -38,27 +38,27 @@ set belloff=all
 
 " Lightline-like configs:
 " Show the current mode
-" set showmode
+set showmode
 " Show EOL type and last modified timestamp, right after the filename
 " Set the statusline...
 " ...filename relative to current $PWD
-" set statusline=%f
+set statusline=%f
 " ...help file flag
-" set statusline+=%h
+set statusline+=%h
 " ...modified flag
-" set statusline+=%m
+set statusline+=%m
 " ...readonly flag
-" set statusline+=%r
+set statusline+=%r
 " ...fileformat [unix]/[dos] etc...
-" set statusline+=\ [%{&ff}]
+set statusline+=\ [%{&ff}]
 " ...last modified timestamp
-" set statusline+=\ (%{strftime(\"%H:%M\ %d/%m/%Y\",getftime(expand(\"%:p\")))})
+set statusline+=\ (%{strftime(\"%H:%M\ %d/%m/%Y\",getftime(expand(\"%:p\")))})
 " ...Rest: right align
-" set statusline+=%=
+set statusline+=%=
 " ...position in buffer: linenumber, column, virtual column
-" set statusline+=%l,%c%V
+set statusline+=%l,%c%V
 " ...position in buffer: Percentage
-" set statusline+=\ %P
+set statusline+=\ %P
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
