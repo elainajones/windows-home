@@ -80,5 +80,8 @@ function find {
         [string]$Path = $PWD,
         [string]$Pattern
     )
-    return Get-ChildItem -Path $Path -Recurse -ErrorAction SilentlyContinue -Include $Pattern
+    foreach ($i in Get-ChildItem -Path $Path -Recurse -ErrorAction SilentlyContinue -Include $Pattern) {
+        $path = Join-Path $i.Directory $i.Name
+        write-host "$($path | Resolve-Path -Relative)"
+    }
 }
