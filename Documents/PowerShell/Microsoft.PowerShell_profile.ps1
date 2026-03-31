@@ -28,6 +28,12 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -ScriptBlock {
 ######################################################################
 # Functions
 ######################################################################
+function who {
+    query user
+}
+function uptime {
+    Get-CimInstance -ClassName win32_operatingsystem | select lastbootuptime
+}
 function explorer {
     param (
         $Path = $PWD
