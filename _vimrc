@@ -115,6 +115,10 @@ set statusline+=\ %P
 " highlight ALEErrorSign ctermbg=none ctermfg=red
 " highlight ALEWarningSign ctermbg=none ctermfg=yellow
 " " }}}
+" " }}}
+" " Gutentags {{{
+" let g:gutentags_ctags_tagfile='.tags'
+" " }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keymapping
@@ -149,6 +153,24 @@ map <C-h> <C-W>h
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-l> <C-W>l
+tmap <C-h> <C-W>h
+tmap <C-j> <C-W>j
+tmap <C-k> <C-W>k
+tmap <C-l> <C-W>l
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+" New tab
+nnoremap tn :tabnew<CR>
+" Open definition in new split
+nnoremap <C-\> :vsp<CR>:exec("tag ".expand("<cword>"))<CR>
+" Open definition in new tab
+nnoremap \| :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+" Navigate between tabs
+nnoremap <S-h> :tabprevious<CR>
+nnoremap <S-l> :tabnext<CR>
+" Move tabs
+nnoremap <silent> <Tab>h :tabm -1<CR>
+nnoremap <silent> <Tab>l :tabm +1<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tabs
@@ -195,6 +217,22 @@ augroup commit_highlight
     autocmd FileType gitcommit call matchadd('ConventionalCommits', '\%^\(\(fix\|feat\|build\|chore\|ci\|docs\|style\|refactor\|perf\|test\)\>\)\@!.*:', 100)
 augroup END
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Spell check
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" - Pressing z= with the cursor over a word in normal mode will open word
+"   selection
+" - Pressing zg with the cursor over a word in normal mode will add it to the
+"   dictionary
+" - Pressing zw with the cursor over a word in normal mode will mark it as
+"   incorrect
+set spell spelllang=en_us
+"" Set spelling for markdown files
+"autocmd FileType markdown setlocal spell spelllang=en_us
+"" Set spelling for git commits
+"autocmd FileType gitcommit setlocal spell spelllang=en_us
+"" Set spelling for text files
+"autocmd FileType text setlocal spell spelllang=en_us
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
