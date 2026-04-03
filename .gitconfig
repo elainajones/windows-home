@@ -3,16 +3,38 @@
     # if ssh key auth is not permitted by policy.
 	helper = store
 [user]
-	email = 133198355+elainajones@users.noreply.github.com 
+	useConfigOnly = true
+	email = 133198355+elainajones@users.noreply.github.com
 	name = Elaina Jones
-	# signingkey = 42A1B190F99555C1
+	# signingKey = 42A1B190F99555C1
 [alias]
+    b=branch
     lg = log --color --graph --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     co=checkout
     s=status
     shove=push -f
     aa=commit --amend --author="Elaina Jones <133198355+elainajones@users.noreply.github.com>"
 [commit]
-	gpgsign = false
+	gpgSign = false
 [init]
 	defaultBranch = main
+[core]
+    # Disable in favor of gitattributes
+	autocrlf = false
+    # Enforce defaults
+	excludesFile = ~/.config/git/ignore
+    attributesFile = ~/.config/git/attributes
+[merge]
+	tool = vimdiff1
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[submodule]
+	fetchJobs = 0
+[fetch]
+	parallel = 0
+[checkout]
+	workers = 0
+[branch]
+	sort = -creatordate
