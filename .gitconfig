@@ -11,9 +11,11 @@
     b=branch
     lg = log --color --graph --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     co=checkout
+    b=branch
     s=status
     shove=push -f
     aa=commit --amend --author="Elaina Jones <133198355+elainajones@users.noreply.github.com>"
+	serve = !git daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
 [commit]
 	gpgSign = false
 [init]
