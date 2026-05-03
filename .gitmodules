@@ -2,7 +2,7 @@
 	path = vimfiles/pack/default/start/supertab
 	url = https://github.com/ervandew/supertab.git
 [submodule "vimfiles/pack/default/start/lightline"]
-	path = vimfiles/pack/default/start/lightline
+	path = vimfiles/pack/default/start/lightline.vim
 	url = https://github.com/itchyny/lightline.vim.git
 [submodule "vimfiles/pack/default/start/gruvbox"]
 	path = vimfiles/pack/default/start/gruvbox
