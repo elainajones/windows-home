@@ -24,9 +24,6 @@ set laststatus=2
 set showmatch
 " Better command line completion
 set wildmode=list:longest,longest:full
-" :W sudo saves the file
-" Useful for handling the permission-denied error
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 " Ignore case when searching
 set ignorecase
 " Linebreak on 80 characters
@@ -66,92 +63,96 @@ set statusline+=\ %P
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load plugins first so vimrc configs can override for changes
-" " Gruvbox (colorscheme) {{{
-" " I honestly forgot what these are for
-" set background=dark
-" set notermguicolors
-" let g:gruvbox_transparent_bg=1
-" let g:gruvbox_bold=1
-" let g:gruvbox_italic=1
-" colorscheme gruvbox
+" Gruvbox (colorscheme) {{{
+" I honestly forgot what these are for
+set background=dark
+set notermguicolors
+let g:gruvbox_transparent_bg=1
+let g:gruvbox_bold=1
+let g:gruvbox_italic=1
+colorscheme gruvbox
 " nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
 " nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
 " nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
 " nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
 " nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
 " nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
-" " }}}
-" " Ale {{{
-" let g:ale_lint_delay=0
-" let g:ale_linters = {'python': ['pylint', 'flake8'], 'bash': ['cspell'], 'powershell': ['psscriptanalyzer']}
-" " Manual fix for filetypes not set with :filetypes=on
-" augroup file_types
-"     autocmd!
-"     " Fix filetypes so Ale knows to lint them
-"     autocmd BufRead,BufNewFile *.ps1 set filetype=powershell
-" augroup END
-" 
-" let g:ale_python_flake8_options="--ignore E501,F403,F405,E722"
-" let g:ale_python_pylint_options="--jobs 4 -E --disable E0401"
-" " Enable if performance is poor
-" let g:ale_linters_explicit = 1
-" let g:ale_lint_on_enter = 1
-" let g:ale_lint_on_insert_leave = 1
-" let g:ale_warn_about_trailing_whitespace = 0
-" "let g:ale_lint_on_text_changed = 'never'
-" highlight ALEVirtualTextError ctermbg=none ctermfg=red
-" highlight ALEErrorSign ctermbg=none ctermfg=red
-" highlight ALEVirtualTextWarning ctermbg=none ctermfg=yellow
-" highlight ALEWarningSign ctermbg=none ctermfg=yellow
-" highlight ALEVirtualTextInfo ctermbg=none ctermfg=magenta
-" highlight ALEInfoSign ctermbg=none ctermfg=magenta
-" " }}}
-" " GitGutter {{{
-" let g:gitgutter_override_sign_column_highlight = 0
-" highlight clear SignColumn
-" highlight GitGutterAdd ctermbg=NONE guibg=NONE "ctermfg=2
-" highlight GitGutterChange ctermbg=NONE guibg=NONE "ctermfg=3
-" highlight GitGutterDelete ctermbg=NONE guibg=NONE "ctermfg=1
-" highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE "ctermfg=4
-" " }}}
-" " Gutentags {{{
-" let g:gutentags_ctags_tagfile='.tags'
-" " }}}
-" " Lightline {{{
-" " set noshowmode
-" let g:lightline = {
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ],
-"       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'gitbranch': 'FugitiveHead'
-"       \ },
-"       \ }
-" " }}}
-" " Markdown TOC {{{
-" let g:vmt_auto_update_on_save = 0
-" let g:vmt_dont_insert_fence = 1
-" let g:vmt_list_item_char='-'
-" augroup md_toc
-"     autocmd!
-"     autocmd FileType markdown nnoremap toc :GenTocGitLab<CR>
-" augroup END
-" " }}}
-" " NERDTree {{{
-" let NERDTreeQuitOnOpen = 0
-" let NERDTreeAutoDeleteBuffer = 1
-" let NERDTreeMinimalUI = 1
-" let NERDTreeDirArrows = 1
-" 
-" silent! nmap <C-p> :NERDTreeToggle<CR>
-" silent! map <F3> :NERDTreeFind<CR>
-" 
-" let g:NERTreeMapActivateNode="<F3>"
-" let g:NERDTreeMapPreview="<F4>"
-" 
-" nmap xecute "NERDTree"
-" " }}}
+" }}}
+" Ale {{{
+let g:ale_lint_delay=0
+let g:ale_linters = {'python': ['pylint', 'flake8'], 'bash': ['cspell'], 'powershell': ['psscriptanalyzer']}
+" Manual fix for filetypes not set with :filetypes=on
+augroup file_types
+    autocmd!
+    " Fix filetypes so Ale knows to lint them
+    autocmd BufRead,BufNewFile *.ps1 set filetype=powershell
+augroup END
+
+let g:ale_python_flake8_options="--ignore E501,F403,F405,E722"
+let g:ale_python_pylint_options="--jobs 4 -E --disable E0401"
+" Enable if performance is poor
+let g:ale_linters_explicit = 1
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_insert_leave = 1
+let g:ale_warn_about_trailing_whitespace = 0
+"let g:ale_lint_on_text_changed = 'never'
+
+highlight clear ALEVirtualTextError
+highlight ALEVirtualTextError ctermbg=none ctermfg=red
+highlight clear ALEErrorSign
+highlight ALEErrorSign ctermbg=none ctermfg=red
+highlight clear ALEVirtualTextWarning
+highlight ALEVirtualTextWarning ctermbg=none ctermfg=yellow
+highlight clear ALEWarningSign
+highlight ALEWarningSign ctermbg=none ctermfg=yellow
+highlight clear ALEVirtualTextInfo
+highlight ALEVirtualTextInfo ctermbg=none ctermfg=magenta
+highlight clear ALEInfoSign
+highlight ALEInfoSign ctermbg=none ctermfg=magenta
+" }}}
+" GitGutter {{{
+let g:gitgutter_override_sign_column_highlight = 0
+highlight clear SignColumn
+highlight GitGutterAdd ctermbg=NONE guibg=NONE ctermfg=2
+highlight GitGutterChange ctermbg=NONE guibg=NONE ctermfg=3
+highlight GitGutterDelete ctermbg=NONE guibg=NONE ctermfg=1
+highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE "ctermfg=4
+" }}}
+" Lightline {{{
+" set noshowmode
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+" }}}
+" Markdown TOC {{{
+let g:vmt_auto_update_on_save = 0
+let g:vmt_dont_insert_fence = 1
+let g:vmt_list_item_char='-'
+augroup md_toc
+    autocmd!
+    autocmd FileType markdown nnoremap toc :GenTocGitLab<CR>
+augroup END
+" }}}
+" NERDTree {{{
+let NERDTreeQuitOnOpen = 0
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+
+silent! nmap <C-p> :NERDTreeToggle<CR>
+silent! map <F3> :NERDTreeFind<CR>
+
+let g:NERTreeMapActivateNode="<F3>"
+let g:NERDTreeMapPreview="<F4>"
+
+nmap xecute "NERDTree"
+" }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keymapping
@@ -190,8 +191,6 @@ tmap <C-h> <C-W>h
 tmap <C-j> <C-W>j
 tmap <C-k> <C-W>k
 tmap <C-l> <C-W>l
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
 " New tab
 nnoremap tn :tabnew<CR>
 " Open definition in new split
