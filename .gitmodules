@@ -22,3 +22,6 @@
 [submodule "vimfiles/pack/default/start/vim-gitgutter"]
 	path = vimfiles/pack/default/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "vimfiles/pack/default/start/vim-markdown-toc"]
+	path = vimfiles/pack/default/start/vim-markdown-toc
+	url = https://github.com/mzlogin/vim-markdown-toc.git
