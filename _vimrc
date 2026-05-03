@@ -3,6 +3,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
+" Enable filetype detection
+set filetype=on
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
@@ -64,7 +66,7 @@ set statusline+=\ %P
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load plugins first so vimrc configs can override for changes
-" " Gruvbox (colorscheme) config {{{
+" " Gruvbox (colorscheme) {{{
 " " I honestly forgot what these are for
 " set background=dark
 " set notermguicolors
@@ -75,8 +77,68 @@ set statusline+=\ %P
 " nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
 " nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
 " nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
+" nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
+" nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
+" nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
 " " }}}
-" " NERDTree config {{{
+" " Ale {{{
+" let g:ale_lint_delay=0
+" let g:ale_linters = {'python': ['pylint', 'flake8'], 'bash': ['cspell'], 'powershell': ['psscriptanalyzer']}
+" " Manual fix for filetypes not set with :filetypes=on
+" augroup file_types
+"     autocmd!
+"     " Fix filetypes so Ale knows to lint them
+"     autocmd BufRead,BufNewFile *.ps1 set filetype=powershell
+" augroup END
+" 
+" let g:ale_python_flake8_options="--ignore E501,F403,F405,E722"
+" let g:ale_python_pylint_options="--jobs 4 -E --disable E0401"
+" " Enable if performance is poor
+" let g:ale_linters_explicit = 1
+" let g:ale_lint_on_enter = 1
+" let g:ale_lint_on_insert_leave = 1
+" let g:ale_warn_about_trailing_whitespace = 0
+" "let g:ale_lint_on_text_changed = 'never'
+" highlight ALEVirtualTextError ctermbg=none ctermfg=red
+" highlight ALEErrorSign ctermbg=none ctermfg=red
+" highlight ALEVirtualTextWarning ctermbg=none ctermfg=yellow
+" highlight ALEWarningSign ctermbg=none ctermfg=yellow
+" highlight ALEVirtualTextInfo ctermbg=none ctermfg=magenta
+" highlight ALEInfoSign ctermbg=none ctermfg=magenta
+" " }}}
+" " GitGutter {{{
+" let g:gitgutter_override_sign_column_highlight = 0
+" highlight clear SignColumn
+" highlight GitGutterAdd ctermbg=NONE guibg=NONE "ctermfg=2
+" highlight GitGutterChange ctermbg=NONE guibg=NONE "ctermfg=3
+" highlight GitGutterDelete ctermbg=NONE guibg=NONE "ctermfg=1
+" highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE "ctermfg=4
+" " }}}
+" " Gutentags {{{
+" let g:gutentags_ctags_tagfile='.tags'
+" " }}}
+" " Lightline {{{
+" " set noshowmode
+" let g:lightline = {
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'gitbranch': 'FugitiveHead'
+"       \ },
+"       \ }
+" " }}}
+" " Markdown TOC {{{
+" let g:vmt_auto_update_on_save = 0
+" let g:vmt_dont_insert_fence = 1
+" let g:vmt_list_item_char='-'
+" augroup md_toc
+"     autocmd!
+"     autocmd FileType markdown nnoremap toc :GenTocGitLab<CR>
+" augroup END
+" " }}}
+" " NERDTree {{{
 " let NERDTreeQuitOnOpen = 0
 " let NERDTreeAutoDeleteBuffer = 1
 " let NERDTreeMinimalUI = 1
@@ -89,35 +151,6 @@ set statusline+=\ %P
 " let g:NERDTreeMapPreview="<F4>"
 " 
 " nmap xecute "NERDTree"
-" " }}}
-" " GitGutter Colors {{{
-" let g:gitgutter_override_sign_column_highlight = 0
-" highlight clear SignColumn
-" highlight GitGutterAdd ctermbg=NONE guibg=NONE "ctermfg=2
-" highlight GitGutterChange ctermbg=NONE guibg=NONE "ctermfg=3
-" highlight GitGutterDelete ctermbg=NONE guibg=NONE "ctermfg=1
-" highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE "ctermfg=4
-" " }}}
-" " Ale {{{
-" let g:ale_lint_delay=0
-" let g:ale_linters = {'python': ['pylint', 'flake8'], 'bash': ['cspell']}
-" 
-" let g:ale_python_flake8_options="--ignore E501,F403,F405,E722"
-" let g:ale_python_pylint_options="--jobs 4 -E --disable E0401"
-" " Enable if performance is poor
-" let g:ale_linters_explicit = 1
-" let g:ale_lint_on_enter = 1
-" let g:ale_lint_on_insert_leave = 1
-" let g:ale_warn_about_trailing_whitespace = 0
-" "let g:ale_lint_on_text_changed = 'never'
-" highlight ALEVirtualTextError ctermbg=none ctermfg=red
-" highlight ALEVirtualTextWarning ctermbg=none ctermfg=yellow
-" highlight ALEErrorSign ctermbg=none ctermfg=red
-" highlight ALEWarningSign ctermbg=none ctermfg=yellow
-" " }}}
-" " }}}
-" " Gutentags {{{
-" let g:gutentags_ctags_tagfile='.tags'
 " " }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -173,6 +206,19 @@ nnoremap <silent> <Tab>h :tabm -1<CR>
 nnoremap <silent> <Tab>l :tabm +1<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Macros
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" To save a macro follow the bellow format
+" let @q = '<Ctrl-R><Ctrl-R>q'
+"
+" This can be optionally defined or mapped per file type
+" augroup ft_macro
+"     autocmd!
+"     autocmd FileType markdown let @t='0wv$hyo- [pA](#pA)v?#uv$h:s/\%V /-/g | s/\%V[*!&\.]\+//g0'
+"     autocmd FileType markdown nnoremap <buffer> toc @t
+" augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tabs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set Proper Tabs
@@ -181,7 +227,10 @@ set shiftwidth=4
 set smarttab
 set expandtab
 " Fix for Makefile tabs since it can be picky
-autocmd FileType make setlocal noexpandtab
+augroup make_tabs
+    autocmd!
+    autocmd FileType make setlocal noexpandtab
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight config
@@ -203,9 +252,11 @@ call matchadd('TrailingWhitespace', '\s\+$', 100)
 highlight CommaWhiteSpace ctermbg=magenta guibg=pink
 " Verical split
 highlight clear VertSplit
-set fillchars+=vert:\ 
+set fillchars+=vert:\ " Space here to make vertical split invisible
 highlight VertSplit ctermfg=darkgrey ctermbg=NONE guifg=NONE guibg=NONE
 " Spell check highlighting
+highlight clear SpellBad
+highlight SpellBad cterm=underline gui=underline
 " Highlight search results
 " Use marker as fold method (see Functions section)
 set foldtext=MyFoldText()
