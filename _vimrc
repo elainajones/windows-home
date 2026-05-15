@@ -71,12 +71,6 @@ let g:gruvbox_transparent_bg=1
 let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 colorscheme gruvbox
-" nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
-" nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
-" nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
-" nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
-" nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
-" nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
 " }}}
 " Ale {{{
 let g:ale_lint_delay=0
@@ -253,9 +247,6 @@ highlight CommaWhiteSpace ctermbg=magenta guibg=pink
 highlight clear VertSplit
 set fillchars+=vert:\ " Space here to make vertical split invisible
 highlight VertSplit ctermfg=darkgrey ctermbg=NONE guifg=NONE guibg=NONE
-" Spell check highlighting
-highlight clear SpellBad
-highlight SpellBad cterm=underline gui=underline
 " Highlight search results
 " Use marker as fold method (see Functions section)
 set foldtext=MyFoldText()
@@ -267,22 +258,6 @@ augroup commit_highlight
     autocmd FileType gitcommit call matchadd('ConventionalCommits', '\%^\(\(fix\|feat\|build\|chore\|ci\|docs\|style\|refactor\|perf\|test\)\>\)\@!.*:', 100)
 augroup END
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Spell check
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" - Pressing z= with the cursor over a word in normal mode will open word
-"   selection
-" - Pressing zg with the cursor over a word in normal mode will add it to the
-"   dictionary
-" - Pressing zw with the cursor over a word in normal mode will mark it as
-"   incorrect
-set spell spelllang=en_us
-"" Set spelling for markdown files
-"autocmd FileType markdown setlocal spell spelllang=en_us
-"" Set spelling for git commits
-"autocmd FileType gitcommit setlocal spell spelllang=en_us
-"" Set spelling for text files
-"autocmd FileType text setlocal spell spelllang=en_us
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
