@@ -68,9 +68,6 @@ function main {
     # Allow running scripts (this might need to be run before running this
     Set-ExecutionPolicy -ExecutionPolicy ByPass
 
-    # Install and run SSH.
-    Add-OpenSSH
-
     # Make sure profile exists.
     New-Item -ItemType Directory -Path $savePath -Force > $null
     if (-Not (Test-Path -PathType Leaf -Path $PROFILE)) {
@@ -91,13 +88,13 @@ function main {
 
         if (Test-Path -PathType Leaf -Path $outputPath) {
             # Extract download contents.
-            Write-Host "Extracting contents to $(Split-Path -Parent $outputPath)"
-            tar -xf $outputPath -C $(Split-Path -Parent $outputPath)
+            Write-Output "Extracting contents to $(Split-Path -Parent $outputPath)"
+            Expand-Archive -Path $outputPath -DestinationPath $(Split-Path -Parent $outputPath)
             # Find path to executable.
             $execPath = Find-Path -Path $(Split-Path -Parent $outputPath) -Pattern $execName
 
             if ($execPath.Length -gt 0) {
-                Write-Host "Found path to $execName"
+                Write-Output "Found path to $execName"
                 # If more than 1 possible executable match is found, get
                 # only the first one.
                 $execPath = Split-Path -Parent $execPath[0].FullName
@@ -117,11 +114,11 @@ function main {
 
                 # Write both newline and old content back to profile.
                 $newContent | Set-Content $PROFILE
-                Write-Host "Appended $execName to PATH"
+                Write-Output "Appended $execName to PATH"
             }
         }
     }
-    Write-Host "Finished installing packages"
+    Write-Output "Finished installing packages"
 
     $tempDir = New-TemporaryDirectory
     $url = "https://www.github.com/elainajones/windows-home.git"
@@ -157,12 +154,11 @@ function main {
     # installation instead of trying to open the Microsoft Store.
     Remove-Item $env:USERPROFILE\AppData\Local\Microsoft\WindowsApps\python*.exe
 
-    # Download installers to simplify setup.
-    Download-File "https://www.python.org/ftp/python/3.13.7/python-3.13.7-amd64.exe" ~/Downloads
-
     # Cleanup temp files.
     Remove-Item -Recurse -Force -Path $tempDir > $null
 
-    Write-Host "Finished copying configuration files"
+    Write-Output "Finished copying configuration files"
 }
 main
+# Install and run SSH (uncomment to perform this action)
+# Add-OpenSSH
