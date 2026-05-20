@@ -7,4 +7,5 @@ Public Sub BindKeys()
     Application.OnKey "^+R", "LoadPlugins"
     Application.OnKey "^+K", "HyperlinkTicketIDs"
     Application.OnKey "^+D", "DiffOrCompact"
+    Application.OnKey "^+V", "FormulasToValues"
 End Sub
