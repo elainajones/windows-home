@@ -7,3 +7,4 @@ Sub FormulasToValues()
     Selection.Value2 = Selection.Value2
 End Sub
 
+

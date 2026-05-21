@@ -1,6 +1,5 @@
 Option Explicit
 
-
 Private Function HasDiffHighlight(rng As Range) As Boolean
     '
     ' Check if selected cells have specific condition formatting
@@ -18,7 +17,6 @@ Private Function HasDiffHighlight(rng As Range) As Boolean
         End If
     Next c
 End Function
-
 
 Sub DiffHighlightedRows()
     '
@@ -65,7 +63,6 @@ Sub CompactHighlightedRows()
     ' Clear and compact (move up) rows in selection if they contain the
     ' specific condition highlights (i.e. remove diff lines).
     '
-
     Dim area As Range
     Dim readRow As Long, writeRow As Long
     Dim rowRng As Range

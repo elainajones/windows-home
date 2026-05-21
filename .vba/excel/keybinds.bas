@@ -8,4 +8,5 @@ Public Sub BindKeys()
     Application.OnKey "^+K", "HyperlinkTicketIDs"
     Application.OnKey "^+D", "DiffOrCompact"
     Application.OnKey "^+V", "FormulasToValues"
+    Application.OnKey "^+C", "CopySelectedCellsToClipboard"
 End Sub
