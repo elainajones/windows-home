@@ -9,4 +9,5 @@ Public Sub BindKeys()
     Application.OnKey "^+D", "DiffOrCompact"
     Application.OnKey "^+V", "FormulasToValues"
     Application.OnKey "^+C", "CopySelectedCellsToClipboard"
+    Application.OnKey "^+A", "AutoFillHyperlinkValues"
 End Sub
