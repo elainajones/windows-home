@@ -32,3 +32,32 @@ Sub AutoFillHyperlinkValues()
     Next r
 End Sub
 
+Sub MergeSelectedCellValues()
+    '
+    ' Merges selected cell values into the top leftmost cell. This is
+    ' similar to "Merge Cells" except data is combined, not truncated.
+    '
+    Dim cell As Range
+    Dim firstCell As Range
+    Dim out As String
+
+    If TypeName(Selection) <> "Range" Then Exit Sub
+
+    Set firstCell = Selection.Cells(1, 1)
+
+    For Each cell In Selection.Cells
+        out = out & cell.Text & vbCrLf
+    Next
+
+    If Len(out) > Len(vbCrLf) Then
+        out = Left$(out, Len(out) - Len(vbCrLf))
+    End If
+
+    firstCell.Value = out
+
+    For Each cell In Selection.Cells
+        If cell.Address <> firstCell.Address Then
+            cell.ClearContents
+        End If
+    Next
+End Sub

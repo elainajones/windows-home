@@ -5,6 +5,7 @@ Public Sub BindKeys()
 
     ' Reload macros
     Application.OnKey "^+R", "LoadPlugins"
+    Application.OnKey "^+M", "MergeSelectedCellValues"
     Application.OnKey "^+K", "HyperlinkTicketIDs"
     Application.OnKey "^+D", "DiffOrCompact"
     Application.OnKey "^+V", "FormulasToValues"
