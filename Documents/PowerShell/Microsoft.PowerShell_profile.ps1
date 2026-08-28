@@ -32,7 +32,7 @@ function who {
     query user
 }
 function uptime {
-    Get-CimInstance -ClassName win32_operatingsystem | select lastbootuptime
+    Get-CimInstance -ClassName win32_operatingsystem | Select-Object lastbootuptime
 }
 function explorer {
     param (
@@ -57,19 +57,19 @@ function wget {
         New-Item -ItemType Directory -Path $(Split-Path -Parent $OutputPath) -Force > $null
     }
 
-    Write-Host "Downloading $(Split-Path -Leaf $OutputPath)"
+    Write-Output "Downloading $(Split-Path -Leaf $OutputPath)"
 
     $ProgressPreference = 'SilentlyContinue'
     Invoke-WebRequest -Uri $Url -OutFile $OutputPath
 
-    Write-Host "Saved to $OutputPath"
+    Write-Output "Saved to $OutputPath"
 }
 function sha256sum {
     param (
         [string]$Path
     )
     foreach ($i in Get-FileHash -A SHA256 $Path) {
-        write-host "$($i.Hash.ToLower())  $($i.Path | Resolve-Path -Relative)"
+        Write-Output "$($i.Hash.ToLower())  $($i.Path | Resolve-Path -Relative)"
     }
 }
 function md5sum {
@@ -77,7 +77,7 @@ function md5sum {
         [string]$Path
     )
     foreach ($i in Get-FileHash -A MD5 $Path) {
-        write-host "$($i.Hash.ToLower())  $($i.Path | Resolve-Path -Relative)"
+        Write-Output "$($i.Hash.ToLower())  $($i.Path | Resolve-Path -Relative)"
     }
 }
 
@@ -88,6 +88,6 @@ function find {
     )
     foreach ($i in Get-ChildItem -Path $Path -Recurse -ErrorAction SilentlyContinue -Include $Pattern) {
         $path = Join-Path $i.Directory $i.Name
-        write-host "$($path | Resolve-Path -Relative)"
+        Write-Output "$($path | Resolve-Path -Relative)"
     }
 }
