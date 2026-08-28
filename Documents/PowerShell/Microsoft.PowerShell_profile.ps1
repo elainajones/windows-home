@@ -11,7 +11,10 @@ Set-PSReadLineOption -BellStyle None
 # Aliases
 ######################################################################
 Set-Alias -Name c -Value clear
+# Common editors
 Set-Alias -Name npp -Value "C:/Program Files/Notepad++/notepad++.exe"
+Set-Alias -Name sublime -Value "C:/Program Files/Sublime Text/sublime_text.exe"
+Set-Alias -Name xl -Value "C:/Program Files/Microsoft Office/root/Office16/EXCEL.EXE"
 
 ######################################################################
 # Keybinds
@@ -33,12 +36,6 @@ function who {
 }
 function uptime {
     Get-CimInstance -ClassName win32_operatingsystem | Select-Object lastbootuptime
-}
-function explorer {
-    param (
-        $Path = $PWD
-    )
-    explorer.exe $Path
 }
 # Remove any pre-existing system alias so we can override it
 Remove-Item Alias:wget -Force 2> $null
