@@ -31,6 +31,13 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -ScriptBlock {
 ######################################################################
 # Functions
 ######################################################################
+function rkh {
+    param (
+        [Parameter(Mandatory)]
+        [string]$destination
+    )
+    ssh-keygen -R $destination
+}
 function who {
     query user
 }
