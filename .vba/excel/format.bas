@@ -9,6 +9,9 @@ Sub HyperlinkTicketIDs()
     baseUrl = InputBox("Enter base URL:")
     If baseUrl = "" Then Exit Sub
 
+    Application.ScreenUpdating = False
+    Application.EnableEvents = False
+
     For Each c In Selection
         If Trim(c.Value) <> "" Then
             c.Hyperlinks.Add _
@@ -17,4 +20,7 @@ Sub HyperlinkTicketIDs()
                 TextToDisplay:=CStr(c.Value)
         End If
     Next c
+
+    Application.ScreenUpdating = True
+    Application.EnableEvents = True
 End Sub

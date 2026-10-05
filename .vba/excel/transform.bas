@@ -52,22 +52,22 @@ Sub CombineCellValues()
     Dim separator As String
     Dim hyperlink As String
     Dim row As Long
-    Dim lastRow As Long
 
     If TypeName(Selection) <> "Range" Then Exit Sub
 
+    Application.ScreenUpdating = False
+    Application.EnableEvents = False
+
     ' If entire columns are selected, combine each row horizontally.
     If Selection.Rows.Count = Rows.Count And Selection.Columns.Count > 1 Then
-        lastRow = 0
-
-        For Each cell In Selection.Cells
-            If cell.Value <> "" Then
-                If cell.Row > lastRow Then lastRow = cell.Row
-            End If
-        Next
-
-        For row = 1 To lastRow
+        For row = 1 To Rows.Count
             Set rowRange = Intersect(Selection, Rows(row))
+
+            If rowRange.Cells(1, 1).Value = "" And rowRange.Cells(1, 2).Value = "" Then
+                ' Break if both cells in the row are empty (i.e. end of
+                ' table) to avoid iterating across all rows.
+                Exit For
+            End If
 
             out = ""
             hyperlink = ""
@@ -96,45 +96,47 @@ Sub CombineCellValues()
                 End If
             Next
         Next
-        Exit Sub
-    End If
+    Else
+        Set firstCell = Selection.Cells(1, 1)
 
-    Set firstCell = Selection.Cells(1, 1)
-
-    ' Add a newline for vertical selections
-    If Selection.Rows.Count > Selection.Columns.Count Then
-        separator = vbCrLf
-    End If
-
-    For Each cell In Selection.Cells
-        out = out & cell.Text & separator
-
-        ' Save any hyperlinks. If more than one, the last found
-        ' hyperlink will be used.
-        If cell.Hyperlinks.Count > 0 Then
-            hyperlink = cell.Hyperlinks(1).Address
+        ' Add a newline for vertical selections
+        If Selection.Rows.Count > Selection.Columns.Count Then
+            separator = vbCrLf
         End If
-    Next
 
-    If separator <> "" Then
-        out = Left$(out, Len(out) - Len(separator))
-    End If
+        For Each cell In Selection.Cells
+            out = out & cell.Text & separator
 
-    firstCell.Value = out
+            ' Save any hyperlinks. If more than one, the last found
+            ' hyperlink will be used.
+            If cell.Hyperlinks.Count > 0 Then
+                hyperlink = cell.Hyperlinks(1).Address
+            End If
+        Next
 
-    If hyperlink <> "" Then
-        firstCell.Hyperlinks.Add _
-            Anchor:=firstCell, _
-            Address:=hyperlink, _
-            TextToDisplay:=out
-    End If
-
-    For Each cell In Selection.Cells
-        If cell.Address <> firstCell.Address Then
-            cell.ClearContents
-            cell.Hyperlinks.Delete
+        If separator <> "" Then
+            out = Left$(out, Len(out) - Len(separator))
         End If
-    Next
+
+        firstCell.Value = out
+
+        If hyperlink <> "" Then
+            firstCell.Hyperlinks.Add _
+                Anchor:=firstCell, _
+                Address:=hyperlink, _
+                TextToDisplay:=out
+        End If
+
+        For Each cell In Selection.Cells
+            If cell.Address <> firstCell.Address Then
+                cell.ClearContents
+                cell.Hyperlinks.Delete
+            End If
+        Next
+    End If
+
+    Application.ScreenUpdating = True
+    Application.EnableEvents = True
 End Sub
 
 Sub SplitCellValue()
@@ -151,6 +153,9 @@ Sub SplitCellValue()
     p = InputBox("Split after:")
     If p = "" Then Exit Sub
 
+    Application.ScreenUpdating = False
+    Application.EnableEvents = False
+
     Columns(Selection.Column).Insert
 
     For Each c In Selection
@@ -162,4 +167,7 @@ Sub SplitCellValue()
             c.Offset(0, 1).Value = Mid$(t, i + Len(p))
         End If
     Next c
+
+    Application.ScreenUpdating = True
+    Application.EnableEvents = True
 End Sub
