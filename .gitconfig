@@ -1,12 +1,43 @@
 [credential]
     # Might be needed for Windows to force use of .git-credentials
     # if ssh key auth is not permitted by policy.
-	helper = store
+    helper = store
 [user]
-	useConfigOnly = true
-	email = 133198355+elainajones@users.noreply.github.com
-	name = Elaina Jones
-	# signingKey = 42A1B190F99555C1
+    useConfigOnly = true
+    email = 133198355+elainajones@users.noreply.github.com
+    name = Elaina Jones
+    signingKey = 42A1B190F99555C1
+[core]
+    autocrlf = True
+    safecrlf = true
+    excludesFile = ~/.config/git/ignore
+    attributesFile = ~/.config/git/attributes
+    editor = vim
+
+[checkout]
+    workers = 0
+[fetch]
+    parallel = 0
+[submodule]
+    fetchJobs = 0
+
+[init]
+    defaultBranch = main
+[commit]
+    gpgSign = true
+    template = ~/.config/git/message.txt
+[clean]
+   requireForce = false
+[merge]
+    tool = vimdiff1
+
+[branch]
+    sort = -creatordate
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false
+
 [alias]
     b=branch
     lg = log --color --graph --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
@@ -15,27 +46,4 @@
     s=status
     shove=push -f
     aa=commit --amend --author="Elaina Jones <133198355+elainajones@users.noreply.github.com>"
-	serve = !git daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
-[commit]
-	gpgSign = false
-[init]
-	defaultBranch = main
-[core]
-	autocrlf = True
-    # Enforce defaults
-	excludesFile = ~/.config/git/ignore
-    attributesFile = ~/.config/git/attributes
-[merge]
-	tool = vimdiff1
-[diff]
-	tool = vimdiff
-[difftool]
-	prompt = false
-[submodule]
-	fetchJobs = 0
-[fetch]
-	parallel = 0
-[checkout]
-	workers = 0
-[branch]
-	sort = -creatordate
+    serve = !git daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
